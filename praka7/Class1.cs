@@ -1,47 +1,46 @@
-﻿
 using System.Diagnostics;
-
-
 namespace Praka7
 {
-    internal static class ProvodnikClass
+    internal static class Provodnik
     {
         public static string CottonField = "";
         public static int Otstup = 0;
         public static List<string> list = new List<string>();
-        public static int Skoka = 0;
+        public static int Kolichestvo = 0;
         public static void Start()
         {
-            Console.WriteLine("               Проводильник по нулям и единицам  |  F1 - Создать папку | F2 - Создать файл | Delete - Удалить | Backspace - В меню дисков");
-            Console.WriteLine("  -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-            List<string> NapolnenieList = new List<string>();
+                Console.WriteLine("Проводильник по нулям и единицам  |  F1 - Создать папку | F2 - Создать файл | Delete - Удалить | Backspace - В меню дисков");
+            List<string> Strukrura = new List<string>();
             string[] Drives = new string[] { };
             string[] Files = new string[] { };
 
-            if (ProvodnikClass.CottonField != "")
+            
+            
+            
+            if (Provodnik.CottonField != "")
             {
-                Drives = Directory.GetDirectories(ProvodnikClass.CottonField);
-                Files = Directory.GetFiles(ProvodnikClass.CottonField);
+                Drives = Directory.GetDirectories(Provodnik.CottonField);
+                Files = Directory.GetFiles(Provodnik.CottonField);
                 foreach (string napolnenieD in Drives)
                 {
-                    NapolnenieList.Add(napolnenieD);
+                    Strukrura.Add(napolnenieD);
                 }
                 foreach (string napolnenieF in Files)
                 {
-                    NapolnenieList.Add(napolnenieF);
+                    Strukrura.Add(napolnenieF);
                 }
-                foreach (string file in NapolnenieList)
+                foreach (string file in Strukrura)
                 {
-                    Console.WriteLine("  " + file + "............. Создан: " + File.GetCreationTime(file));
+                    Console.WriteLine("  " + file + "Создан afqk: " + File.GetCreationTime(file));
                     list.Add(file);
-                    if (ProvodnikClass.Skoka == 0)
+                    if (Provodnik.Kolichestvo == 0)
                     {
-                        ProvodnikClass.Otstup = ProvodnikClass.Otstup + 1;
+                        Provodnik.Otstup = Provodnik.Otstup + 1;
                     }
                 }
             }
 
-            else if (ProvodnikClass.CottonField == "")
+            else if (Provodnik.CottonField == "")
             {
                 Drives = Environment.GetLogicalDrives();
                 foreach (string n in Drives)
@@ -52,7 +51,7 @@ namespace Praka7
                 {
                     try
                     {
-                        Console.WriteLine("  " + file.Name + "..................... " + "Свободно " + (file.AvailableFreeSpace / 1073741824) + " ГБ из " + (file.TotalSize / 1073741824) + " ГБ");
+                        Console.WriteLine("  " + file.Name  + "Свободно " + (file.AvailableFreeSpace / 1073741824) + " ГБ из " + (file.TotalSize / 1073741824) + " ГБ");
                     }
                     finally { }
 
@@ -63,67 +62,66 @@ namespace Praka7
 
     public class Functions
     {
-        bool NegrPashet = true;
+        bool Bool = true;
         public int CursPos = 1;
         void Cursor(ConsoleKeyInfo key)
         {
             if (key.Key == ConsoleKey.UpArrow & CursPos != 0)
             {
                 CursPos--;
-                ProvodnikClass.Skoka = 1;
+                Provodnik.Kolichestvo = 1;
             }
             else if (key.Key == ConsoleKey.DownArrow)
             {
                 CursPos++;
-                ProvodnikClass.Skoka = 1;
+                Provodnik.Kolichestvo = 1;
             }
-            //Strelki(0, 15, CursPos);
+            
             if (key.Key == ConsoleKey.Enter)
             {
-                if (Path.GetExtension(ProvodnikClass.list[CursPos]) == "")
+                if (Path.GetExtension(Provodnik.list[CursPos]) == "")
                 {
-                    ProvodnikClass.CottonField = ProvodnikClass.list[CursPos];
+                    Provodnik.CottonField = Provodnik.list[CursPos];
                     CursPos = 2;
-                    ProvodnikClass.Skoka = 0;
-                    ProvodnikClass.Otstup = 0;
+                    Provodnik.Kolichestvo = 0;
+                    Provodnik.Otstup = 0;
 
                 }
-                else if (Path.GetExtension(ProvodnikClass.list[CursPos]) != "")
+                else if (Path.GetExtension(Provodnik.list[CursPos]) != "")
                 {
-                    Process.Start(new ProcessStartInfo { FileName = ProvodnikClass.list[CursPos], UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo { FileName = Provodnik.list[CursPos], UseShellExecute = true });
 
 }
-                ProvodnikClass.list.Clear();
+                Provodnik.list.Clear();
             }
             else if (key.Key == ConsoleKey.Backspace)
             {
                 CursPos = 0;
-                ProvodnikClass.Skoka = 1;
-                ProvodnikClass.CottonField = "";
-                ProvodnikClass.list.Clear();
+                Provodnik.Kolichestvo = 1;
+                Provodnik.CottonField = "";
+                Provodnik.list.Clear();
             }
             else if (key.Key == ConsoleKey.Delete)
             {
                 Console.Clear();
                 Console.WriteLine("Точно точно?");
                 Console.WriteLine("Если да, введите:\nДа, я окончательно решил, что хочу удалить данный файл из памяти моего персонального компьютера. Я понимаю, что файл будет безвозвратно утерян. Подтверждаю удаление");
-                Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\");");
                 string ConfirmDelete = Console.ReadLine();
                 switch (ConfirmDelete)
                 {
                     case "Да, я окончательно решил, что хочу удалить данный файл из памяти моего персонального компьютера. Я понимаю, что файл будет безвозвратно утерян. Подтверждаю удаление":
                         try
                         {
-                            File.Delete(ProvodnikClass.list[CursPos]);
+                            File.Delete(Provodnik.list[CursPos]);
                         }
                         catch { }
-                        Directory.Delete(ProvodnikClass.list[CursPos], true);
+                        Directory.Delete(Provodnik.list[CursPos], true);
                         break;
                     default:
                         CursPos = 0;
-                        ProvodnikClass.Skoka = 1;
-                        ProvodnikClass.CottonField = "";
-                        ProvodnikClass.list.Clear();
+                        Provodnik.Kolichestvo = 1;
+                        Provodnik.CottonField = "";
+                        Provodnik.list.Clear();
                         break;
                 }
 
@@ -133,42 +131,36 @@ namespace Praka7
             else if (key.Key == ConsoleKey.F1)
             {
                 Console.Clear();
-                Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                /*ProvodnikClass.Skoka = 0;*/
                 Console.WriteLine("Введите название папки: ");
                 string Papka = Console.ReadLine();
-                ProvodnikClass.list.Clear();
-                Directory.CreateDirectory(ProvodnikClass.CottonField + "\\" + Papka);
-                /*ProvodnikClass.Otstup = 0;*/
+                Provodnik.list.Clear();
+                Directory.CreateDirectory(Provodnik.CottonField + "\\" + Papka);
 
             }
             else if (key.Key == ConsoleKey.F2)
             {
-                /*ProvodnikClass.Skoka = 0;*/
                 Console.Clear();
-                Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 Console.WriteLine("Введите название файла: ");
                 string FileName = Console.ReadLine();
                 Console.WriteLine("Введите расширение файла");
                 string Rasshirenie = Console.ReadLine();
-                ProvodnikClass.list.Clear();
-                File.Create(ProvodnikClass.CottonField + "\\" + FileName + "." + Rasshirenie).Close();
-                /*ProvodnikClass.Otstup = 0;*/
+                Provodnik.list.Clear();
+                File.Create(Provodnik.CottonField + "\\" + FileName + "." + Rasshirenie).Close();
             }
             else if (key.Key == ConsoleKey.Escape)
             {
-                NegrPashet = false;
+                Bool = false;
             }
             Console.Clear();
         }
-        public void SolnceEsheVisoko()
+        public void Function()
         {
-            ProvodnikClass.Start();
-            while (NegrPashet == true)
+            Provodnik.Start();
+            while (Bool == true)
             {
                 ConsoleKeyInfo key = Console.ReadKey();
                 Cursor(key);
-                ProvodnikClass.Start();
+                Provodnik.Start();
                 Console.SetCursorPosition(0, 0);
                 Console.WriteLine();
                 Console.SetCursorPosition(0, CursPos);
